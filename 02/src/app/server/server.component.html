@@ -1,0 +1,15 @@
+<h3>Server Component</h3>
+<p>Server id: {{ serverId }}</p>
+<!-- <p>Server status: {{ serverStatus }}</p> -->
+<p
+   [ngStyle]="{ backgroundColor: getColor() }"
+   [ngClass]="{ online: serverStatus === 'onLine' }"
+>
+   Server status: {{ getServerStatus() }}
+</p>
+
+<!-- 
+   en [ngClass]
+   las keys son las css classes
+   y los values con las condiciones para agregarlas o quitarlas
+-->
