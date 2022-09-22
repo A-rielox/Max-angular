@@ -13,6 +13,7 @@ export class ServersComponent implements OnInit {
    constructor(
       private serversService: ServersService,
       private router: Router,
+      // ActivatedRoute es la ruta actual
       private route: ActivatedRoute
    ) {}
 

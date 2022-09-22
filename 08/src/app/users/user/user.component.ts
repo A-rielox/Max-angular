@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
    selector: 'app-user',
@@ -8,7 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class UserComponent implements OnInit {
    user: { id: number; name: string };
 
-   constructor() {}
+   constructor(private route: ActivatedRoute) {}
 
-   ngOnInit() {}
+   ngOnInit() {
+      this.user = {
+         // con snapshot no se me va a actualizar si ya me encuentro en la ruta y solo cambian los params
+         id: this.route.snapshot.params['id'],
+         name: this.route.snapshot.params['name'],
+      };
+
+      // .route.params este params es un "observable", y si me suscribo => se va a actualizar ( realizar la accion ) cada q cambien los params
+      this.route.params.subscribe((params: Params) => {
+         this.user.id = params['id'];
+         this.user.name = params['name'];
+      });
+   }
 }
