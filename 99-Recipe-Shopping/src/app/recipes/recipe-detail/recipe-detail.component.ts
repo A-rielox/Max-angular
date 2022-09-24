@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 
@@ -14,6 +14,7 @@ export class RecipeDetailComponent implements OnInit {
 
    constructor(
       private recipeService: RecipeService,
+      private router: Router,
       private route: ActivatedRoute
    ) {}
 
@@ -27,5 +28,13 @@ export class RecipeDetailComponent implements OnInit {
 
    onAddToShoppingList() {
       this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
+   }
+
+   onEditRecipe() {
+      // this.router.navigate(['edit'], { relativeTo: this.route });
+      // EL DE ARRIBA FUNCIONA BIEN Y ES COMO DEBERIA HACERSE, PERO PARA SABER COMO HACERLO EN CASO DE TENER Q IR A OTRA RUTA MAS COMPLEJA
+      this.router.navigate(['../', this.id, 'edit'], {
+         relativeTo: this.route,
+      });
    }
 }
