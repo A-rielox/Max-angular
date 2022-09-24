@@ -1,4 +1,9 @@
-<a href="#" class="list-group-item clearfix" (click)="onSelected()">
+<a
+   [routerLink]="[index]"
+   routerLinkActive="active"
+   style="cursor: pointer"
+   class="list-group-item clearfix"
+>
    <div class="pull-left">
       <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
       <p class="list-group-item-text">{{ recipe.description }}</p>
@@ -13,3 +18,11 @@
       />
    </span>
 </a>
+
+<!-- 
+<a
+   ACA YA ESTOY EN RUTA /recipes ASI Q LE PUEDO PONER EL PURO INDICE, en lugar de lo de abajo
+   [routerLink]="['/recipes', 1]"
+
+   y me debe mandar a { path: ':id', component: RecipeDetailComponent }, al picarle al link
+-->
