@@ -12,7 +12,8 @@ export class AppComponent {
    }
 
    onSubmit(form: NgForm) {
-      console.log(form.value);
+      // console.log(form.value);
       // {username: 'Arielox', email: 'test1@test1.com', secret: 'teacher'}
+      console.log(form);
    }
 }

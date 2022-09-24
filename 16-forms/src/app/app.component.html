@@ -12,6 +12,7 @@
                      class="form-control"
                      ngModel
                      name="username"
+                     required
                   />
                </div>
                <!-- 
@@ -31,9 +32,18 @@
                      class="form-control"
                      ngModel
                      name="email"
+                     required
+                     email
+                     #email="ngModel"
                   />
+                  <span
+                     *ngIf="email.invalid && email.touched"
+                     class="help-block"
+                     >Please enter a valid email!!</span
+                  >
                </div>
             </div>
+            <!-- email es directiva de Angular -->
 
             <div class="form-group">
                <label for="secret">Secret Questions</label>
@@ -44,7 +54,13 @@
                </select>
             </div>
 
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button
+               class="btn btn-primary"
+               type="submit"
+               [disabled]="f.invalid"
+            >
+               Submit
+            </button>
          </form>
       </div>
    </div>
