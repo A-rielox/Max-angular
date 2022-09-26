@@ -1,9 +1,13 @@
 <div class="container">
    <div class="row">
       <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-         <!-- #f es la referencia a la form -->
+         <!-- #userData="ngModelGroup" para tener la referencia a todo el grupo -->
          <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-            <div id="user-data">
+            <div
+               id="user-data"
+               ngModelGroup="userData"
+               #userData="ngModelGroup"
+            >
                <div class="form-group">
                   <label for="username">Username</label>
                   <input
@@ -43,15 +47,41 @@
                   >
                </div>
             </div>
+            <p *ngIf="!userData.valid && userData.touched">
+               User data is invalid
+            </p>
             <!-- email es directiva de Angular -->
 
             <div class="form-group">
                <label for="secret">Secret Questions</label>
 
-               <select id="secret" class="form-control" ngModel name="secret">
+               <select
+                  id="secret"
+                  class="form-control"
+                  [ngModel]="defaultQuestion"
+                  name="secret"
+               >
                   <option value="pet">Your first Pet?</option>
                   <option value="teacher">Your first teacher?</option>
                </select>
+            </div>
+
+            <div class="form-group">
+               <textarea
+                  rows="2"
+                  name="questionAnswer"
+                  [(ngModel)]="answer"
+                  class="form-control"
+               ></textarea>
+            </div>
+
+            <p>Your reply: {{ answer }}</p>
+
+            <div class="radio" *ngFor="let gender of genders">
+               <label>
+                  <input type="radio" name="gender" [value]="gender" />
+                  {{ gender }}
+               </label>
             </div>
 
             <button
