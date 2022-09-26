@@ -32,7 +32,7 @@ export class AppComponent {
       //    questionAnswer: '',
       //    gender: 'male',
       // });
-      // la forma mas recomendada ( xq este me sobreescribe lo q ya tengo )
+      // la forma mas recomendada es la sig ( xq esta anterior me sobreescribe lo q ya tengo )
       this.signupForm.form.patchValue({ userData: { username: 'lel' } });
    }
 
