@@ -13,15 +13,48 @@ export class AppComponent {
    defaultQuestion = 'pet';
    answer = '';
    genders = ['male', 'female'];
+   user = {
+      username: '',
+      email: '',
+      secretQuestion: '',
+      answer: '',
+      gender: '',
+   };
+   submitted = false;
 
    suggestUserName() {
       const suggestedName = 'Superuser';
+
+      // para pasar un valor determinado a la forma ( al picarle un boton o hacer algo )
+      // this.signupForm.setValue({
+      //    userData: { username: suggestedName, email: '' },
+      //    secret: 'pet',
+      //    questionAnswer: '',
+      //    gender: 'male',
+      // });
+      // la forma mas recomendada ( xq este me sobreescribe lo q ya tengo )
+      this.signupForm.form.patchValue({ userData: { username: 'lel' } });
    }
 
+   /* onSubmit(form: NgForm) {
+      // console.log(form.value);
+      // {username: 'Arielox', email: 'test1@test1.com', secret: 'teacher'}
+      console.log(form.value);
+   } */
    onSubmit(form: NgForm) {
       // console.log(form.value);
       // {username: 'Arielox', email: 'test1@test1.com', secret: 'teacher'}
       console.log(form.value);
+
+      this.submitted = true;
+      this.user.username = this.signupForm.value.userData.username;
+      this.user.email = this.signupForm.value.userData.email;
+      this.user.secretQuestion = this.signupForm.value.secret;
+      this.user.answer = this.signupForm.value.questionAnswer;
+      this.user.gender = this.signupForm.value.gender;
+
+      // PARA RESETEAR LA FORMA DESPUES DEL SUBMIT
+      this.signupForm.reset();
    }
 
    // ngModelGroup="userData"

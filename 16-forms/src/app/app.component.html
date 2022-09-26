@@ -24,7 +24,11 @@
                   ngModel 
                   name="username"
                -->
-               <button class="btn btn-default" type="button">
+               <button
+                  class="btn btn-default"
+                  type="button"
+                  (click)="suggestUserName()"
+               >
                   Suggest a Username
                </button>
 
@@ -79,7 +83,7 @@
 
             <div class="radio" *ngFor="let gender of genders">
                <label>
-                  <input type="radio" name="gender" [value]="gender" />
+                  <input type="radio" name="gender" ngModel [value]="gender" />
                   {{ gender }}
                </label>
             </div>
@@ -92,6 +96,19 @@
                Submit
             </button>
          </form>
+      </div>
+   </div>
+
+   <hr />
+
+   <div class="row" *ngIf="submitted">
+      <div class="col-xs-12">
+         <h3>Your data</h3>
+         <p>Username: {{ user.username }}</p>
+         <p>Mail: {{ user.email }}</p>
+         <p>Secret question: {{ user.secretQuestion }}</p>
+         <p>Answer: {{ user.answer }}</p>
+         <p>Gender: {{ user.gender }}</p>
       </div>
    </div>
 </div>
