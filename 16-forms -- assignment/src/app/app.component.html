@@ -1,0 +1,83 @@
+<div class="container">
+   <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+         <!--
+            Add your own Validator which doesn't allow "Test" as a Project Name
+
+            Also implement that Validator as an async Validator (replace the other one)
+
+            Upon submitting the form, simply print the value to the console
+         -->
+         <form
+            [formGroup]="projectForm"
+            (ngSubmit)="onSubmit()"
+            class="form-group"
+         >
+            <!-- =========== NAME =========== -->
+            <div class="form-group">
+               <label for="name">Name</label>
+               <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  formControlName="projectName"
+               />
+               <span
+                  *ngIf="
+                     !projectForm.get('projectName').valid &&
+                     projectForm.get('projectName').touched
+                  "
+                  class="help-block"
+                  >Please enter a name</span
+               >
+            </div>
+
+            <!-- =========== EMAIL =========== -->
+            <div class="form-group">
+               <label for="email">email</label>
+               <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  formControlName="email"
+               />
+               <span
+                  *ngIf="
+                     !projectForm.get('email').valid &&
+                     projectForm.get('email').touched
+                  "
+                  class="help-block"
+                  >Please enter a valid email</span
+               >
+            </div>
+
+            <!-- =========== PROJECT STATUS =========== -->
+            <div class="form-group">
+               <label for="status">Proyect Status</label>
+
+               <select
+                  id="status"
+                  class="form-control"
+                  formControlName="projectStatus"
+               >
+                  <!-- <option value="stable">stable</option>
+                  <option value="critical">critical</option>
+                  <option value="finished">finished</option> -->
+                  <option *ngFor="let status of pStatus" [value]="status">
+                     {{ status }}
+                  </option>
+               </select>
+            </div>
+
+            <!-- =========== SUBMIT BUTTON =========== -->
+            <button
+               class="btn btn-primary"
+               type="submit"
+               [disabled]="projectForm.invalid"
+            >
+               Submit
+            </button>
+         </form>
+      </div>
+   </div>
+</div>
