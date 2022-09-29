@@ -8,6 +8,7 @@ import { Post } from './post.model';
 @Injectable({ providedIn: 'root' })
 export class PostService {
    error = new Subject<string>();
+
    private url =
       'https://ng-complete-guide-77886-default-rtdb.firebaseio.com/posts.json';
 
@@ -19,7 +20,7 @@ export class PostService {
       // Angular agarra el postData y lo pasa a json antes de mandarlo
       this.http
          .post<{ name: string }>(this.url, postData, {
-            // observe: 'response' para q me entregue toda la response y no el resumen ( incluye headers, status , url , etc )
+            // observe: 'response' para q me entregue toda la response y no el resumen. ( incluye headers, status , url , etc )
             observe: 'response',
          })
          .subscribe(
@@ -36,6 +37,7 @@ export class PostService {
 
    fetchPosts() {
       // retorno el observable y me suscribo en el component
+      // lo q devuelve {-ND5ZApr3ukM13YcMVSl: {content:…, title: ...}}
       return this.http
          .get<{ [key: string]: Post }>(this.url, {
             headers: new HttpHeaders({ 'Custom-Header': 'Holi Hola' }),
@@ -54,15 +56,13 @@ export class PostService {
             }),
             // para agarrar el error de esta otra forma
             catchError((errorRes) => {
-               // mas logica mandar mensajes a otros servers
+               // mas logica o mandar mensajes a otros servers ...
                return throwError(errorRes);
             })
          );
       /* .subscribe((posts) => {
             // si hubieran varios componentes interesados en la respuesta => devolveria la data con un subject y mandandola con next, y alla suscribiendome, pero como es uno solo => na mas retorno la respuesta
          }); */
-      // la respuesta original
-      // {-ND5ZApr3ukM13YcMVSl: {content:…, title: ...}}
    }
 
    clearPosts() {

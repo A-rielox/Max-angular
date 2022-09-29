@@ -1,3 +1,6 @@
+// resolver
+// codigo q corre antes de q se carge una ruta, para asegurarse de q ( la ruta ) tenga la data necesaria
+
 // Resolver envuelve la data q se va a obtener ( lo que se pasa al tipo < ... > )
 // tengo q hacerlo @Injectable() porque es un servicio al q se le va a inyectar un servicio
 

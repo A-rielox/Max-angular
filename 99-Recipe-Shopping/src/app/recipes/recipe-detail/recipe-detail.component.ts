@@ -18,6 +18,7 @@ export class RecipeDetailComponent implements OnInit {
       private route: ActivatedRoute
    ) {}
 
+   // 🎨
    ngOnInit(): void {
       this.route.params.subscribe((params: Params) => {
          this.id = +params['id'];
@@ -43,3 +44,12 @@ export class RecipeDetailComponent implements OnInit {
       this.router.navigate(['/recipes']);
    }
 }
+
+// 🎨
+// como para cargar esta pagina dependo dq ya tenga las recetas, y si estoy en la ruta y hago reload no la voy a tener, puse un resolver para q haga fetch de las recetas antes de cargar la ruta
+// recordar que tengo q especificar el resolve en la ruta el app-routing.module.ts
+// {
+//    path: ':id',
+//    component: RecipeDetailComponent,
+//    resolve: [RecipesResolverService],
+// }
