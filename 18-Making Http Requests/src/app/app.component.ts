@@ -1,61 +1,71 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
-
-// https://ng-complete-guide-77886-default-rtdb.firebaseio.com/
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Post } from './post.model';
+import { PostService } from './post.service';
 
 @Component({
    selector: 'app-root',
    templateUrl: './app.component.html',
    styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
-   private url =
-      'https://ng-complete-guide-77886-default-rtdb.firebaseio.com/posts.json';
-   loadedPosts = [];
+export class AppComponent implements OnInit, OnDestroy {
+   loadedPosts: Post[] = [];
+   isFetching = false;
+   error = null;
+   private errorSub: Subscription;
 
-   constructor(private http: HttpClient) {}
+   constructor(private postService: PostService) {}
 
    ngOnInit() {
-      this.fetchPosts();
+      this.errorSub = this.postService.error.subscribe((errorMessage) => {
+         this.error = errorMessage;
+      });
+
+      this.isFetching = true;
+
+      this.postService.fetchPosts().subscribe(
+         (posts) => {
+            this.isFetching = false;
+            this.loadedPosts = posts;
+         },
+         (error) => {
+            this.error = error.message;
+         }
+      );
    }
 
-   onCreatePost(postData: { title: string; content: string }) {
-      // Angular agarra el postData y lo pasa a json antes de mandarlo
-      this.http.post(this.url, postData).subscribe((responseData) => {
-         console.log(responseData);
-         // {name: '-ND5ZApr3ukM13YcMVSl'}
-      });
+   onCreatePost(postData: Post) {
+      this.postService.createAndStorePost(postData.title, postData.content);
    }
 
    onFetchPosts() {
-      // Send Http request
-      this.fetchPosts();
+      this.isFetching = true;
+
+      this.postService.fetchPosts().subscribe(
+         (posts) => {
+            this.isFetching = false;
+            this.loadedPosts = posts;
+         },
+         (error) => {
+            this.isFetching = false;
+            this.error = error.message;
+         }
+      );
    }
 
    onClearPosts() {
-      // Send Http request
+      this.isFetching = true;
+      this.postService.clearPosts().subscribe(() => {
+         this.loadedPosts = [];
+      });
+      this.isFetching = false;
    }
 
-   private fetchPosts() {
-      this.http
-         .get(this.url)
-         .pipe(
-            map((responseData) => {
-               const postArray = [];
+   onHandleError() {
+      this.error = null;
+   }
 
-               // for-in va pasando las keys
-               for (const key in responseData) {
-                  postArray.push({ ...responseData[key], id: key });
-               }
-
-               return postArray;
-            })
-         )
-         .subscribe((posts) => {
-            console.log(posts);
-         });
-      // la respuesta original
-      // {-ND5ZApr3ukM13YcMVSl: {content:…, title: ...}}
+   ngOnDestroy(): void {
+      this.errorSub.unsubscribe();
    }
 }
