@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
-import { map, tap } from 'rxjs/operators';
+import { exhaustMap, map, take, tap } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 
 // debe llevar el @Injectable si voy a inyectar un service en un service
 @Injectable({
@@ -15,7 +16,8 @@ export class DataStorageService {
 
    constructor(
       private http: HttpClient,
-      private recipeService: RecipeService
+      private recipeService: RecipeService,
+      private authService: AuthService
    ) {}
 
    storeRecipes() {
@@ -43,6 +45,6 @@ export class DataStorageService {
          })
       );
 
-      // el pipe es por si hay una receta q no tiene ingredients, para q de todas maneras tenga un array para q no mande errores si llamo un metodo sobre el array
+      // el map (de rxjs) es por si hay una receta q no tiene ingredients, para q de todas maneras tenga un array para q no mande errores si llamo un metodo sobre el array
    }
 }
