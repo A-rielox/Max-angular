@@ -19,6 +19,7 @@ export class AuthService {
    // BehaviorSubject para poder acceder al valor en cualquier momento y NO solo cuando se emite el evento
    // en este caso el valor se obtiene cuando se hace el login, pero lo voy a ocupara tb despues cuando haga el request de las recetas ( en cualquier momento despues )
    user = new BehaviorSubject<User>(null);
+   private tokenExpirationDuration: any;
 
    private signupUrl =
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBw2P-2oRB9UnPoslNuqOJuBbUsctoX5mg';
@@ -68,9 +69,51 @@ export class AuthService {
          );
    }
 
+   autoLogin() {
+      const userData: {
+         email: string;
+         id: string;
+         _token: string;
+         _tokenExpirationDate: string;
+      } = JSON.parse(localStorage.getItem('userData'));
+
+      if (!userData) {
+         return;
+      }
+
+      const loadedUser = new User(
+         userData.email,
+         userData.id,
+         userData._token,
+         new Date(userData._tokenExpirationDate)
+      );
+
+      if (loadedUser.token) {
+         this.user.next(loadedUser);
+
+         const expirationDuration =
+            new Date(userData._tokenExpirationDate).getTime() -
+            new Date().getTime();
+         this.autoLogout(expirationDuration);
+      }
+   }
+
    logout() {
       this.user.next(null);
       this.router.navigate(['/auth']);
+
+      localStorage.removeItem('userData');
+
+      if (this.tokenExpirationDuration) {
+         clearTimeout(this.tokenExpirationDuration);
+      }
+      this.tokenExpirationDuration = null;
+   }
+
+   autoLogout(expirationDuration: number) {
+      this.tokenExpirationDuration = setTimeout(() => {
+         this.logout();
+      }, expirationDuration);
    }
 
    private handleAuthentication(
@@ -84,6 +127,9 @@ export class AuthService {
       const user = new User(email, userId, token, expirationDate);
 
       this.user.next(user);
+      this.autoLogout(expiresIn * 1000);
+
+      localStorage.setItem('userData', JSON.stringify(user));
    }
 
    private handleError(errorRes: HttpErrorResponse) {
@@ -110,15 +156,6 @@ export class AuthService {
    }
 }
 
-/* 
-
-
-
-
-
-
-
-*/
 /*  
 api key
 AIzaSyBw2P-2oRB9UnPoslNuqOJuBbUsctoX5mg

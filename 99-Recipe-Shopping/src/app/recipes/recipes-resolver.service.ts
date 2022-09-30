@@ -7,7 +7,6 @@ import {
    Resolve,
    RouterStateSnapshot,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { DataStorageService } from '../shared/data-storage.service';
 
 import { Recipe } from './recipe.model';
