@@ -2,15 +2,13 @@
    <!-- <div class="panel-heading">{{ element.name }}</div> -->
    <div class="panel-heading" #heading>{{ name }}</div>
    <div class="panel-body">
+      <!-- RENDERIZANDOLO COMO CHILD EN DONDE LLAMO EL COMPONENT (app.component) con el       ng-content     -->
       <!-- <p>
          <strong *ngIf="element.type === 'server'" style="color: red">{{
             element.content
          }}</strong>
          <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
       </p> -->
-
-      <!-- para renderizar lo q paso como child al llamar este component -->
-      <!-- bueno para pasar html como child -->
       <ng-content></ng-content>
    </div>
 </div>

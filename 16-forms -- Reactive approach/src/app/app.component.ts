@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
    ngOnInit() {
       this.signupForm = new FormGroup({
-         // el 1er arg es el valor default, podria ser "Default User"
+         // el 1er arg es el valor default del field
          userData: new FormGroup({
             // username: new FormControl(null, Validators.required),
             username: new FormControl(null, [

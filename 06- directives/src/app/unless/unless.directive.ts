@@ -18,3 +18,9 @@ export class UnlessDirective {
       private vcRef: ViewContainerRef
    ) {}
 }
+
+// para ocuparla la tengo q declarar en appModule
+// import { BasicHighlightDirective } from './basic-highlight/basic-highlight.directive';
+
+// @NgModule({
+//    declarations: [AppComponent, BasicHighlightDirective], ...

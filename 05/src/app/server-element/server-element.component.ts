@@ -17,7 +17,6 @@ import {
 export class ServerElementComponent
    implements OnInit, AfterContentInit, AfterViewInit
 {
-   // con esto element va a venir del parent ( expone element a cualquier parent )
    @Input('srvElement') element: {
       name: string;
       type: string;
