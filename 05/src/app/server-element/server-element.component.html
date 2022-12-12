@@ -3,12 +3,16 @@
    <div class="panel-heading" #heading>{{ name }}</div>
    <div class="panel-body">
       <!-- RENDERIZANDOLO COMO CHILD EN DONDE LLAMO EL COMPONENT (app.component) con el       ng-content     -->
-      <!-- <p>
-         <strong *ngIf="element.type === 'server'" style="color: red">{{
-            element.content
-         }}</strong>
-         <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
-      </p> -->
+      <!-- <p #contentParagraph>
+               <strong
+                  *ngIf="serverElement.type === 'server'"
+                  style="color: red"
+                  >{{ serverElement.content }}</strong
+               >
+               <em *ngIf="serverElement.type === 'blueprint'">{{
+                  serverElement.content
+               }}</em>
+            </p> -->
       <ng-content></ng-content>
    </div>
 </div>

@@ -22,8 +22,8 @@ export class ServersComponent implements OnInit {
    }
 
    onReload() {
-      //  servers/servers
       // p'q sepa relativo a q agregar la ruta ( xq como esta sin / => se la agrega a la actual, aqui seria 'servers/servers' )
       // this.router.navigate(['servers'], { relativeTo: this.route });
+      //  servers/servers
    }
 }

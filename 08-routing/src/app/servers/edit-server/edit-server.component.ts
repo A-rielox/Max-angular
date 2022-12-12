@@ -27,6 +27,7 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
       // para agarrar el queryParameter y fragment
       // console.log(this.route.snapshot.queryParams);
       // console.log(this.route.snapshot.fragment);
+
       // o mejor con observables
       this.route.queryParams.subscribe((queryParams: Params) => {
          this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;

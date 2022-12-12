@@ -1,13 +1,10 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { LoggingService } from './logging.service';
 
-@Injectable() // p' poder usar depandency-injection
+@Injectable() // p' poder usar depandency-injection ( p' poder inyectarle ahlgo )
 export class AccountsService {
    accounts = [
-      {
-         name: 'Master Account',
-         status: 'active',
-      },
+      { name: 'Master Account', status: 'active' },
       {
          name: 'Testaccount',
          status: 'inactive',

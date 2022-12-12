@@ -29,5 +29,5 @@ export class HomeComponent implements OnInit {
    }
 }
 
-// '/servers' con comillas es absolute path ( se agrega despues del root ( en este caso localhost:234234234 ) )
-// sin comillas es relative y simplemente se agrega al q ya este puesto
+// '/servers' con / es absolute path ( se agrega despues del root ( en este caso localhost:234234234 ) )
+// sin / es relative y simplemente se agrega al q ya este puesto
