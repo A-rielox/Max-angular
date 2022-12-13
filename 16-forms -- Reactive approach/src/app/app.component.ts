@@ -74,6 +74,12 @@ export class AppComponent implements OnInit {
       (<FormArray>this.signupForm.get('hobbies')).push(control);
    }
 
+   // MI COSECHA PARA QUITAR
+   onRemoveHobbie() {
+      // const control = new FormControl(null, Validators.required);
+      (<FormArray>this.signupForm.get('hobbies')).removeAt(-1);
+   }
+
    // el custom validator
    forbiddenNames(control: FormControl): { [s: string]: boolean } {
       if (this.forbiddenUsernames.indexOf(control.value) !== -1) {
