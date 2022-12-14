@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+// para poder ocuparla tengo q ponerla en declarations en app.module
 
 @Pipe({ name: 'shorten' })
 export class ShortenPipe implements PipeTransform {
@@ -10,8 +11,6 @@ export class ShortenPipe implements PipeTransform {
       return value;
    }
 }
-
-// para poder ocuparla tengo q ponerla en declarations en app.module
 
 /*  SIN PARAMETROS
 

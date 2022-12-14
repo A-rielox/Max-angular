@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+// para poder ocuparla tengo q ponerla en declarations en app.module
 
 @Pipe({
    name: 'order',

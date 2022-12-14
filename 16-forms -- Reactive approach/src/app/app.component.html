@@ -103,13 +103,8 @@
 
             <br /><br />
 
-            <button
-               class="btn btn-primary"
-               type="submit"
-               [disabled]="signupForm.invalid"
-            >
-               Submit
-            </button>
+            <!-- [disabled]="signupForm.invalid" -->
+            <button class="btn btn-primary" type="submit">Submit</button>
 
             <span
                *ngIf="!signupForm.valid && signupForm.touched"
