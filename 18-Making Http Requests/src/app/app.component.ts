@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
    constructor(private postService: PostService) {}
 
    ngOnInit() {
+      // p' cuando manejo la suscripcion y el error en el service, alla creo un subject para tener el error y ese es el q agarro aca
       this.errorSub = this.postService.error.subscribe((errorMessage) => {
          this.error = errorMessage;
       });

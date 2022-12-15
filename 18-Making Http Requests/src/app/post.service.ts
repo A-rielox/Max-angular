@@ -61,11 +61,12 @@ export class PostService {
             })
          );
       /* .subscribe((posts) => {
-            // si hubieran varios componentes interesados en la respuesta => devolveria la data con un subject y mandandola con next, y alla suscribiendome, pero como es uno solo => na mas retorno la respuesta
+            // si hubieran varios componentes interesados en la respuesta => crearia un Subject en este Service y acá dentro del fetchPosts haria el next() con los posts, y en cada componente haria la suscripcion, pero como es uno solo => na mas retorno la respuesta
          }); */
    }
 
    clearPosts() {
+      // en firebase si mando este url => borra todos los posts
       return this.http.delete(this.url);
    }
 }
