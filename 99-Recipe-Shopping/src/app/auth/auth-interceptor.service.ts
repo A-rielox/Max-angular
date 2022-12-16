@@ -35,6 +35,8 @@ export class AuthInterceptorService implements HttpInterceptor {
    }
 }
 
+// exhaustMap espera a q se complete el primer observable ( el q retorna el user ), esta respuesta se va a meter el el exhaustMap como parametro y va a devolver otro observable ( como resultado del pipe )
+
 /*  PARA DISCRIMINAR EN QUE REQUEST SE MANDE 
 puero poner dentro de intercept un if con 
 if(req.url === http.....)...

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
@@ -8,16 +8,14 @@ import { AuthService } from './auth.service';
    templateUrl: './auth.component.html',
    styleUrls: ['./auth.component.css'],
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
    isLoginMode = true;
    isLoading = false;
    error: string = null;
 
    constructor(private authService: AuthService, private router: Router) {}
 
-   onSwitchMode() {
-      this.isLoginMode = !this.isLoginMode;
-   }
+   ngOnInit(): void {}
 
    onSubmit(form: NgForm) {
       if (form.invalid) {
@@ -32,11 +30,11 @@ export class AuthComponent {
       if (this.isLoginMode) {
          this.authService.login(email, password).subscribe(
             (resData) => {
+               console.log(resData);
                this.isLoading = false;
                this.router.navigate(['/recipes']);
             },
             (errorMessage) => {
-               // este es el q viene d mi " return throwError(errorMessage); " de auth.service
                this.error = errorMessage;
                this.isLoading = false;
             }
@@ -44,11 +42,11 @@ export class AuthComponent {
       } else {
          this.authService.signup(email, password).subscribe(
             (resData) => {
+               console.log(resData);
                this.isLoading = false;
                this.router.navigate(['/recipes']);
             },
             (errorMessage) => {
-               // este es el q viene d mi " return throwError(errorMessage); " de auth.service
                this.error = errorMessage;
                this.isLoading = false;
             }
@@ -58,7 +56,7 @@ export class AuthComponent {
       form.reset();
    }
 
-   onHandleError() {
-      this.error = null;
+   onSwitchMode() {
+      this.isLoginMode = !this.isLoginMode;
    }
 }
