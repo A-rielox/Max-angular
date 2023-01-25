@@ -40,17 +40,17 @@ export class AuthComponent implements OnInit {
             }
          );
       } else {
-         this.authService.signup(email, password).subscribe(
-            (resData) => {
+         this.authService.signup(email, password).subscribe({
+            next: (resData) => {
                console.log(resData);
                this.isLoading = false;
                this.router.navigate(['/recipes']);
             },
-            (errorMessage) => {
+            error: (errorMessage) => {
                this.error = errorMessage;
                this.isLoading = false;
-            }
-         );
+            },
+         });
       }
 
       form.reset();

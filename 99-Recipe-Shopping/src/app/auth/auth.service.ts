@@ -88,18 +88,22 @@ export class AuthService {
          new Date(userData._tokenExpirationDate)
       );
 
+      // este token ya es del getter, xq ahora estoy ocupando el modelo, asi q entra aca solo si tiene token y aun es valido
       if (loadedUser.token) {
          this.user.next(loadedUser);
 
          const expirationDuration =
             new Date(userData._tokenExpirationDate).getTime() -
             new Date().getTime();
+
          this.autoLogout(expirationDuration);
       }
    }
 
    logout() {
       this.user.next(null);
+
+      // hago el auto logout aqui xq hay varios lugares donde se va a hacer el logout, con el login es solo desde la form xeso es distinto
       this.router.navigate(['/auth']);
 
       localStorage.removeItem('userData');

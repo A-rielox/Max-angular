@@ -39,3 +39,4 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 }
 
 // las guards las tengo q dar de alta en providers de app.module
+   
